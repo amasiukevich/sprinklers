@@ -7,11 +7,12 @@ Zaimplementować algorytm dokonujący optymalnego rozkładu tryskaczy na danym o
 
 
 ### Dane wejściowe
-* Wymiary planszy (width, height)
+* wymiary planszy (width, height)
 * średnica D
 * minimalne pokrycie w % do zakończenia działania algorytmu
 * liczność populacji w danym pokoleniu (mu)
 * liczność produkowanego potomstwa
+* prawdopodobieństwo mutacji
 
 ### Dane wyjściowe
 * położenie tryskaczy
@@ -52,6 +53,16 @@ Zaproponowany przez nas algorytm ma złożoność obliczeniową O(nmin * 60 * la
 
 Podczas testowania algorytmu (wbrew zwykłego założenia o tym, że mutacja powinna być możliwie mało prawdopodobna), ustawiłem prawdopodobieństwo mutacji na 0.1 - tylko dla takich rzędów wielkości algorytm zaczął eksplorować.
 
+### Uruchomienie
+Program wyposażony jest w interfejs wiersza poleceń.
+Przykład uruchomienia
+```
+python3 main.py -wd 20 -ht 20 -ra 3 -cov 50 -mu 100 -ld 40 -mtp 0.01
+```
+Znaczenie parametrów można znaleźć wprowadzając
+```
+python3 main.py --help
+```
 
 ## Testowanie
 Testowanie polega na przeprowadzeniu optymalizacji 25 razy dla każdego z przypadków:
