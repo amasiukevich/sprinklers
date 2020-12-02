@@ -1,7 +1,12 @@
 import numpy as np
 
 class Area():
+    
+    """
+    Author: Anton Masiukevich
+    """
 
+    
     def __init__(self, width=50, height=100, sprinkler_rad=7):
 
         self.width = width
