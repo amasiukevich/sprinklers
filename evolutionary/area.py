@@ -4,6 +4,7 @@ class Area():
     
     """
     Author: Anton Masiukevich
+    Github: https://github.com/amasiukevich
     """
 
     
