@@ -32,10 +32,16 @@ class Population():
         # using mutation probability (CAN BE BETTER)
         self.mutation_pool = np.zeros(1000)
 
-        # TODO: make it fancier (and working properly)
-        for i in range(int(mutation_prob * 1000)):
-            random_place = int(np.random.uniform(low=0, high=len(self.mutation_pool) - 1))
-            self.mutation_pool[random_place] = 1
+        chosen_places = []
+        i = 0
+        while i < int(mutation_prob * 1000):
+            random_place = int(np.random.uniform(low=0, high=len(self.mutation_pool)))
+            if random_place not in chosen_places:
+                chosen_places.append(random_place)
+                self.mutation_pool[random_place] = 1
+            else:
+                continue
+            i += 1
 
         # For 2-point crossover
         self.breakers = [
@@ -61,6 +67,7 @@ class Population():
         self.individuals = specimen
         self.pool = specimen
 
+
     def tournament_selection_for_crossover(self):
 
         """
@@ -75,16 +82,19 @@ class Population():
         for i in range(2 * self.lambda_):
 
             fighter1 = np.random.choice(chosen_specimen)
+            chosen_specimen.remove(fighter1)
             fighter2 = np.random.choice(chosen_specimen)
-            while fighter1 == fighter2:
-                fighter2 = np.random.choice(chosen_specimen)
+            chosen_specimen.remove(fighter2)
 
-            winner = fighter1
             if fighter1.fitness < fighter2.fitness:
                 winner = fighter2
+                chosen_specimen.append(fighter2)
+            else:
+                winner = fighter1
+                chosen_specimen.append(fighter2)
 
             chosen_to_reproduct.append(winner)
-            chosen_specimen.remove(winner)
+
 
         # Actual pairs
         pairs = []
@@ -99,6 +109,7 @@ class Population():
             pairs.append((parent1, parent2))
 
         return pairs
+
 
     def simple_selection(self):
 
@@ -118,7 +129,6 @@ class Population():
             pairs.append((parent, partner))
 
         return pairs
-
 
 
     def perform_optimization(self, generation):
@@ -193,7 +203,6 @@ class Population():
         return fitness
 
 
-    ### Two point crossover
     def crossover(self, parent1: Solution, parent2: Solution):
 
         """
@@ -234,8 +243,6 @@ class Population():
         :return:
         """
 
-        orig_genes = genes
-        print("Mutation!")
         choice = np.random.choice([0, 1])
 
         np.random.shuffle(genes[choice])
@@ -247,6 +254,7 @@ class Population():
 
         return genes
 
+
     def mutate_unit(self, gene_parts, pos, part):
 
         min = 0
@@ -254,7 +262,6 @@ class Population():
 
         if part == 1:
             max = self.height - 1
-
 
         if pos == min:
             gene_parts[pos] += 1
@@ -276,80 +283,28 @@ class Population():
         selected = []
 
         # Prioritizing the best offspring in the pool
-        # best_spec = self.get_best()
-        # selected.append(best_spec)
-        # self.pool.remove(best_spec)
-
-        # 2 - fighters tournament
-        for i in range(self.mu):
-            fighter1 = np.random.choice(self.pool)
-            fighter2 = np.random.choice(self.pool)
-
-            while fighter1 == fighter2:
-                fighter2 = np.random.choice(self.pool)
-
-            winner = fighter1
-            if fighter1.fitness < fighter2.fitness:
-                winner = fighter2
-
-            selected.append(winner)
-
-        return selected
-
-
-
-    def threshold_selection(self):
-
-        """
-        A method to perform a threshold selection
-        :return:
-        """
-        selected = []
-
-        # Add also the best one among all of the offsprings
         best_spec = self.get_best()
         selected.append(best_spec)
         self.pool.remove(best_spec)
 
-        # Find the median value of the fitness (efficiently)
-        # append all the values that have fitness above the median
+        # 2 - fighters tournament
+        for i in range(self.mu - 1):
+            fighter1 = np.random.choice(self.pool)
+            self.pool.remove(fighter1)
+            fighter2 = np.random.choice(self.pool)
+            self.pool.remove(fighter2)
 
-        threshold = self.find_median_fitness()
-        selecting_pool = self.pool
+            winner = None
+            if fighter1.fitness < fighter2.fitness:
+                winner = fighter2
+                self.pool.append(fighter1)
+            else:
+                winner = fighter1
+                self.pool.append(fighter2)
 
-        np.random.shuffle(selecting_pool)
-        count = 0
-
-        for el in selecting_pool:
-
-            if count > self.mu - 1:
-                break
-
-            if el.fitness > threshold:
-                selected.append(el)
-                selecting_pool.remove(el)
-                count += 1
-
-        # other values are random
-        for i in range(self.mu - count - 1):
-            selected.append(np.random.choice(selecting_pool))
+            selected.append(winner)
 
         return selected
-
-
-    # Find median efficiently
-    # Or think of better threshold
-    def find_median_fitness(self):
-
-        """
-        A helper function to calculate the median of the individuals' fitnesses
-        :return:
-        """
-
-        values = sorted(list(set([sol.fitness for sol in self.pool])))
-        median = values[len(values) // 2 + 1]
-
-        return median
 
 
     def get_worst(self):
@@ -368,8 +323,8 @@ class Population():
 
         return worst
 
-
     def get_second_best(self, best):
+
         """
         A method to get the second best solution in pool
         :param best:
@@ -382,6 +337,7 @@ class Population():
             if el.fitness > second_best_score and el != best:
                 second_best_score = el.fitness
                 second_best = el
+
 
         assert len(self.pool) == self.mu + self.lambda_
         return second_best
