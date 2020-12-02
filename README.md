@@ -71,6 +71,7 @@ Powyższe testy zostały wygenerowane dla pokazania, że algorytm dość dobrze 
 
 W poniższej modeli przedstawiono wyniki średniej wartości uzyskanej liczby tryskaczy oraz procentu od teoretycznego minimum (dla 25 uruchomień dla każdego z przypadków).
 | Przypadek | Średnie najlepsze | % teoretycznego |
+|-|-|-|
 | Prosty | 1 | 100 |
 | Złożony | 34.76 | 144.8 |
 | Złożony mała mutacja | 35.6 | 148.3 | 
