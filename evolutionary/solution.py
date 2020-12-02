@@ -2,6 +2,11 @@ import numpy as np
 
 class Solution():
 
+    """
+    Author: Anton Masiukevich
+    Github: https://github.com/amasiukevich
+    """
+    
     ID = 0
 
     def __init__(self, n_sprinklers, width, height):
