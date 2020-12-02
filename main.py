@@ -7,6 +7,10 @@ import argparse
 import matplotlib.pyplot as plt
 from evolutionary.population import Population
 
+"""
+  Author: Anton Masiukevich
+  Github: https://github.com/amasiukevich
+"""
 
 """
 Parsing command line arguments part
@@ -25,14 +29,6 @@ parser.add_argument('-ld', '--llambda', type=int, default=20, help='a number of 
 parser.add_argument('-mtp', '--mutation_prob', type=float, help='mutation probability')
 
 args = parser.parse_args()
-
-# WIDTH = args.width
-# HEIGHT = args.height
-# RADIUS = args.radius
-# MUTATION_PROB = args.mutation_prob
-# MU = args.mu
-# LAMBDA = args.llambda
-# COVERAGE_PERCENT = args.coverage
 
 
 
