@@ -17,7 +17,7 @@ Założenia
 Tryskacze mogą być umieszczane tylko w punktach wewnętrznych obszaru.
 Plansza jest w kształcie prostokąta
 Idea rozwiązania
-Algorytm na początku znajduje minimalną wartość n, przy której teoretycznie da się pokryć wymagany procent powierzchni (“naiwne założenie”). Przeszukujemy przestrzeń (N, 2N) (??? tutaj to do ustalenia???), gdzie n jest liczbą tryskaczy. W tym celu w pętli (iterator k) schodząc od 2N do N przeprowadzamy optymalizację dla każdego naturalnego k. Jeśli nam się udaje przekroczyć % pokrywanej powierzchni - zatem dekrementujemy k, zapisujemy k, oraz minimalny uzyskany procent pokrycia oraz zaczynamy od nowa optymalizację dla k - 1. W danym kroku optymalizacji, jeśli liczba pokoleń jest większa od otrzymanego od używkownika stop_criterion, a jeszcze nie osiągnęliśmy sukcesu - zatrzymujemy algorytm i zwracamy ostatnie k, dla którego poszukiwanie zakończyło się sukcesem.
+Algorytm na początku znajduje minimalną wartość n, przy której teoretycznie da się pokryć wymagany procent powierzchni (“naiwne założenie”). Przeszukujemy przestrzeń (N, 1.5N), gdzie n jest liczbą tryskaczy. W tym celu w pętli (iterator k) schodząc od 1.5N do N przeprowadzamy optymalizację dla każdego naturalnego k. Jeśli nam się udaje przekroczyć % pokrywanej powierzchni - zatem dekrementujemy k, zapisujemy k, oraz minimalny uzyskany procent pokrycia oraz zaczynamy od nowa optymalizację dla k - 1. W danym kroku optymalizacji, jeśli liczba pokoleń jest większa od otrzymanego od używkownika stop_criterion, a jeszcze nie osiągnęliśmy sukcesu - zatrzymujemy algorytm i zwracamy ostatnie k, dla którego poszukiwanie zakończyło się sukcesem.
 
 Implementacja
 Językiem programowania, który został użyty jest Python.
