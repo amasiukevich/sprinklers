@@ -49,9 +49,6 @@ Dodatkowo:
 ### Złożoność obliczeniowa
 Zaproponowany przez nas algorytm ma złożoność obliczeniową O(nmin * 60 * lambda * k ** 3), gdzie k jest w przedziałach od (nmin, 2nmin)
 
-### Wnioski, spostrzeżenia
-
-Podczas testowania algorytmu (wbrew zwykłego założenia o tym, że mutacja powinna być możliwie mało prawdopodobna), ustawiłem prawdopodobieństwo mutacji na 0.1 - tylko dla takich rzędów wielkości algorytm zaczął eksplorować.
 
 ### Uruchomienie
 Program wyposażony jest w interfejs wiersza poleceń.
@@ -71,3 +68,14 @@ Testowanie polega na przeprowadzeniu optymalizacji 25 razy dla każdego z przypa
 * Złożony z mało prawdopodobną mutacją (plansza 20x20, promień 2, p-stwo mutacji 0.001)
 W każdym z wypadków liczba osobników w danym pokoleniu wyniosła 70, liczba "nowo narodzonych" osobników - 20 i procent pokrycia - 75%. 
 Powyższe testy zostały wygenerowane dla pokazania, że algorytm dość dobrze sobie radzi z trywialnym przypadkiem, natomiast eksploatuje w przypadku małego prawdopodobieństwa mutacji.
+
+W poniższej modeli przedstawiono wyniki średniej wartości uzyskanej liczby tryskaczy oraz procentu od teoretycznego minimum (dla 25 uruchomień dla każdego z przypadków).
+| Przypadek | Średnie najlepsze | % teoretycznego |
+| Prosty | 1 | 100 |
+| Złożony | 34.76 | 144.8 |
+| Złożony mała mutacja | 35.6 | 148.3 | 
+
+### Wnioski, spostrzeżenia
+
+Podczas testowania algorytmu (wbrew zwykłego założenia o tym, że mutacja powinna być możliwie mało prawdopodobna), ustawiłem prawdopodobieństwo mutacji na 0.1 - tylko dla takich rzędów wielkości algorytm zaczął eksplorować.
+
